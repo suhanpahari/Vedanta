@@ -186,9 +186,8 @@ isSending = false;
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message';
         
-        let messageInner = '';
-        
         if (sender === 'assistant') {
+            // AI message on the left
             messageDiv.innerHTML = `
                 <div class="message-inner">
                     <div class="avatar">
@@ -219,8 +218,10 @@ isSending = false;
                 </div>
             `;
         } else {
+            // User message on the right
             messageDiv.innerHTML = `
-                <div class="message-inner">
+                <div class="message-inner user-message-container">
+                    <div class="spacer"></div>
                     <div class="user-message">
                         <div class="message-header">
                             <div class="sender-name">You</div>
