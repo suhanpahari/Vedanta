@@ -122,7 +122,7 @@ def chat():
             selected_model = "mistral"  # Default fallback
             
         # Display name for frontend
-        model_display_name = category
+        model_display_name = MODEL_MAPPING[category]
     else:
         # Use selected model
         selected_model = model_selection

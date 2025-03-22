@@ -191,7 +191,7 @@ isSending = false;
             messageDiv.innerHTML = `
                 <div class="message-inner">
                     <div class="avatar">
-                        <span class="ai-avatar-letter">AI</span>
+                        
                     </div>
                     <div class="assistant-message">
                         <div class="message-header">
@@ -230,7 +230,7 @@ isSending = false;
                         <div class="content">${marked.parse(text)}</div>
                     </div>
                     <div class="avatar">
-                        <span class="user-avatar-letter">U</span>
+                        
                     </div>
                 </div>
             `;
