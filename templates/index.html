@@ -952,78 +952,82 @@
             });
             
             // Handle sending messages
-            function sendMessage(message = null) {
-                if (isSending) return;
-                
-                // Get input from textarea or from parameter
-                const userInput = message || inputBox.value.trim();
-                if (!userInput) return;
-                
-                // Clear welcome screen if visible
-                if (isWelcomeScreen) {
-                    chatContainer.innerHTML = '';
-                    isWelcomeScreen = false;
-                }
-                
-                // Add user message to chat
-                appendMessage('user', userInput);
-                
-                // Clear input box
-                inputBox.value = '';
-                
-                // Set sending state
-                isSending = true;
-                
-                // Show loading indicator
-                loadingEl.style.display = 'block';
-                
-                // Simulate AI response (replace with actual API call)
-                setTimeout(() => {
-                    const selectedModel = modelSelect.value;
-                    let aiResponse;
-                    
-                    switch (selectedModel) {
-                        case 'gpt4':
-                            aiResponse = generateResponse(userInput, 'GPT-4');
-                            break;
-                        case 'gpt3.5':
-                            aiResponse = generateResponse(userInput, 'GPT-3.5');
-                            break;
-                        case 'llama3':
-                            aiResponse = generateResponse(userInput, 'Llama 3');
-                            break;
-                        case 'claude':
-                            aiResponse = generateResponse(userInput, 'Claude');
-                            break;
-                        default:
-                            // Auto mode - choose model based on query
-                            if (userInput.toLowerCase().includes('code') || userInput.toLowerCase().includes('python')) {
-                                aiResponse = generateResponse(userInput, 'GPT-4');
-                            } else if (userInput.length > 100) {
-                                aiResponse = generateResponse(userInput, 'Claude');
-                            } else {
-                                aiResponse = generateResponse(userInput, 'Llama 3');
-                            }
-                    }
-                    
-                    // Hide loading
-                    loadingEl.style.display = 'none';
-                    
-                    if (isStreaming) {
-                        // Simulate streaming response
-                        simulateStreamingResponse(aiResponse);
-                    } else {
-                        // Add complete response
-                        appendMessage('assistant', aiResponse.text, aiResponse.model);
-                    }
-                    
-                    // Reset sending state
-                    isSending = false;
-                    
-                    // Scroll to bottom
-                    scrollToBottom();
-                }, 1500);
-            }
+
+            // Handle sending messages
+function sendMessage(message = null) {
+    if (isSending) return;
+    
+    // Get input from textarea or from parameter
+    const userInput = message || inputBox.value.trim();
+    if (!userInput) return;
+    
+    // Clear welcome screen if visible
+    if (isWelcomeScreen) {
+        chatContainer.innerHTML = '';
+        isWelcomeScreen = false;
+    }
+    
+    // Add user message to chat
+    appendMessage('user', userInput);
+    
+    // Clear input box
+    inputBox.value = '';
+    
+    // Set sending state
+    isSending = true;
+    
+    // Show loading indicator
+    loadingEl.style.display = 'block';
+    
+    // Call Flask backend API
+    fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            message: userInput,
+            model: modelSelect.value
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Hide loading
+        loadingEl.style.display = 'none';
+        
+        // Create response object compatible with existing code
+        const aiResponse = {
+            text: data.text,
+            model: data.model
+        };
+        
+        if (isStreaming) {
+            // Simulate streaming response
+            simulateStreamingResponse(aiResponse);
+        } else {
+            // Add complete response
+            appendMessage('assistant', aiResponse.text, aiResponse.model);
+        }
+        
+        // Reset sending state
+        isSending = false;
+        
+        // Scroll to bottom
+        scrollToBottom();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        
+        // Hide loading
+        loadingEl.style.display = 'none';
+        
+        // Show error message
+        appendMessage('assistant', 'Sorry, there was an error processing your request. Please try again.', 'System');
+        
+        // Reset sending state
+        isSending = false;
+    });
+}
             
             // Simulate streaming response
             function simulateStreamingResponse(response) {
