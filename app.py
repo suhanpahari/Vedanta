@@ -58,12 +58,17 @@ def generate_response(query, model_name):
     ollama_model = model_name.lower()
     
     # Simple heuristic model mapping for non-auto models
-    if model_name == "gpt4" or model_name == "gpt3.5":
-        ollama_model = "llama3:8b"  # Fallback to Llama 3 for GPT models
-    elif model_name == "llama3":
-        ollama_model = "llama3:8b"
-    elif model_name == "claude":
-        ollama_model = "llama3:8b"  # No Claude in Ollama, use Llama 3
+
+    if model_name == "deepseek-r1":
+        ollama_model = "deepseek-r1"
+    elif model_name == "mistral":
+        ollama_model = "mistral"
+    elif model_name == "phi4":
+        ollama_model = "phi4"
+    elif model_name == "gemma3:4b":
+        ollama_model = "gemma3:4b"
+    elif model_name == "gemma3:7b":
+        ollama_model = "gemma3:latest"
     
     chat_payload = json.dumps({
         "model": ollama_model,
