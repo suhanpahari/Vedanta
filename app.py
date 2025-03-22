@@ -8,12 +8,12 @@ app = Flask(__name__, static_folder='static')
 
 # Model mapping based on query categories
 MODEL_MAPPING = {
-    "Mathematics": "gemma3",
-    "Image Processing": "gemma3",
-    "Code Generation": "gemma3",
-    "General Use": "gemma3",
-    "OCR": "gemma3",
-    "Reasoning": "gemma3"
+    "Mathematics": "phi4:14b",
+    "Image Processing": "gemma3:latest",
+    "Code Generation": "mistral:7b",
+    "General Use": "gemma3:latest",
+    "OCR": "gemma3:latest",
+    "Reasoning": "deepseek-r1"
 }
 
 # System prompt for query classification

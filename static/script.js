@@ -256,43 +256,6 @@ isSending = false;
         return `${hours}:${minutes} ${ampm}`;
     }
     
-    // Generate AI response based on input
-    function generateResponse(input, model) {
-        // Demo responses
-        if (input.toLowerCase().includes('hello') || input.toLowerCase().includes('hi')) {
-            return {
-                text: "Hello! I'm your local AI assistant. How can I help you today?",
-                model: model
-            };
-        } else if (input.toLowerCase().includes('python') || input.toLowerCase().includes('code')) {
-            return {
-                text: "Here's a simple Python function to get you started:\n\n```python\ndef analyze_data(filename):\n    import pandas as pd\n    \n    # Read the CSV file\n    df = pd.read_csv(filename)\n    \n    # Get basic statistics\n    stats = df.describe()\n    \n    # Return the dataframe and stats\n    return df, stats\n\n# Example usage\ndata, statistics = analyze_data('your_data.csv')\nprint(statistics)\n```\n\nThis function reads a CSV file using pandas and returns both the dataframe and basic statistics. You can modify it based on your specific needs.",
-                model: model
-            };
-        } else if (input.toLowerCase().includes('math') || input.toLowerCase().includes('calculus')) {
-            return {
-                text: "The derivative represents the rate of change of a function with respect to its variable. For a function f(x), the derivative is written as f'(x) or df/dx.\n\nHere are some basic derivative rules:\n\n1. Power Rule: If f(x) = x^n, then f'(x) = n·x^(n-1)\n\n2. Sum Rule: If f(x) = g(x) + h(x), then f'(x) = g'(x) + h'(x)\n\n3. Product Rule: If f(x) = g(x)·h(x), then f'(x) = g'(x)·h(x) + g(x)·h'(x)\n\n4. Quotient Rule: If f(x) = g(x)/h(x), then f'(x) = [g'(x)·h(x) - g(x)·h'(x)]/[h(x)]²\n\nWould you like to see examples of these rules applied to specific functions?",
-                model: model
-            };
-        } else if (input.toLowerCase().includes('email') || input.toLowerCase().includes('draft')) {
-            return {
-                text: "Subject: Follow-Up Regarding Our Recent Meeting\n\nDear [Recipient's Name],\n\nI hope this email finds you well. I wanted to follow up on our meeting [date/time] about [topic].\n\nDuring our discussion, we covered [key points] and agreed on the following next steps:\n\n1. [Action item 1]\n2. [Action item 2]\n3. [Action item 3]\n\nI'm pleased to inform you that I've already begun working on [your specific action items]. I expect to have [deliverable] completed by [date].\n\nIf you have any questions or need additional information, please don't hesitate to reach out. I'm looking forward to our next discussion on [future meeting date if applicable].\n\nThank you for your time and collaboration.\n\nBest regards,\n\n[Your Name]\n[Your Position]\n[Contact Information]",
-                model: model
-            };
-        } else if (input.toLowerCase().includes('transfer learning') || input.toLowerCase().includes('machine learning')) {
-            return {
-                text: "# Transfer Learning in Machine Learning\n\nTransfer learning is a machine learning technique where a model developed for one task is reused as the starting point for a model on a second task. It's particularly popular in deep learning.\n\n## Why Use Transfer Learning?\n\n- **Reduced Training Time**: Starting with pre-trained weights requires less time to converge\n- **Less Data Required**: You can achieve good performance even with smaller datasets\n- **Better Performance**: Often results in better performance than training from scratch\n\n## Common Approaches\n\n1. **Feature Extraction**: Use the pre-trained model as a fixed feature extractor by removing the final classification layer and adding your own on top\n\n2. **Fine-Tuning**: Take a pre-trained model and update all or some of its parameters to perform a new task\n\n## Popular Pre-trained Models\n\n- **Computer Vision**: ResNet, VGG, Inception, EfficientNet\n- **Natural Language Processing**: BERT, GPT, RoBERTa, T5\n\nTransfer learning has revolutionized many areas of AI by allowing developers to leverage powerful pre-trained models rather than starting from scratch.",
-                model: model
-            };
-        } else {
-            // Generic response for other queries
-            return {
-                text: "I understand you're asking about '" + input + "'. As a local AI assistant, I can try to provide helpful information on this topic. Would you like me to explain further or perhaps approach this from a different angle?",
-                model: model
-            };
-        }
-    }
-    
     // Highlight code blocks with Prism.js (you'd need to include this library)
     function highlightCodeBlocks() {
         // This is a mock function - you'd normally use a syntax highlighting library
